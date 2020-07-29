@@ -1,0 +1,14 @@
+{
+  "name": "imagemin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:crazywilson/imagemin.git",
+  "author": "陈万幸 <crazywinson@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "colors": "^1.4.0",
+    "request": "^2.88.2",
+    "user-agents": "^1.0.559"
+  }
+}
