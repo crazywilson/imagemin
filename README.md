@@ -6,7 +6,10 @@
 
 ### 使用方法
 
-```shell
+```bash
 git clone git@github.com:crazywilson/imagemin.git
+```
+
+```bash
 node tinipng.js /path/to/(imagedir|imagefile)
 ```
