@@ -8,8 +8,8 @@
 
 ```bash
 git clone git@github.com:crazywilson/imagemin.git
-```
 
-```bash
+cd imagemin
+
 node tinipng.js /path/to/(imagedir|imagefile)
 ```
