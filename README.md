@@ -1,6 +1,6 @@
 ## nodejs imagemin
 
-## 基于 tinypng.com 的图片压缩工具
+## 基于 tinypng.com（熊猫压缩） 的图片压缩工具
 
 无需注册账号，开箱即用
 
