@@ -62,7 +62,7 @@ function compressImage(src) {
     fileHash(src).then((hash) => {
       if (cachedFiles.includes(hash)) {
         console.log(colors.green("图片已经是压缩文件"));
-        resolve();
+        resolve("exist");
       } else {
         const headers = {
           "content-type": "image/png",
@@ -86,7 +86,7 @@ function compressImage(src) {
             body: data,
           },
           function (err, res, body) {
-            if (err) reject(err);
+            if (err) reject(`Compress Server Error: ${err}`);
             const resJson = JSON.parse(body);
             if (resJson.output && resJson.output.url) {
               request.get(resJson.output.url, { encoding: "binary" }, function (
@@ -168,12 +168,31 @@ function getDirImages(dir) {
   return allFilesPath;
 }
 
+function compressImageTimes(image) {
+  return new Promise((resolve, reject) => {
+    try {
+      compressImage(image)
+        .then(resolve)
+        .catch(function (err) {
+          console.log(
+            colors.yellow(err),
+            colors.green("retry compression......")
+          );
+          compressImageTimes(image).then(resolve);
+        });
+    } catch (error) {
+      console.log(colors.yellow(err), colors.green("retry compression......"));
+      compressImageTimes(image).then(resolve);
+    }
+  });
+}
+
 async function compressDir(dir) {
   const images = getDirImages(dir);
   const imagesTotal = images.length;
   for (let image of images) {
     console.log(colors.cyan("发现图片"), colors.cyan.underline(image));
-    await compressImage(image)
+    await compressImageTimes(image)
       .then(function () {
         if (compressedTotal === imagesTotal) {
           console.log(
@@ -182,7 +201,6 @@ async function compressDir(dir) {
         }
       })
       .catch(function (err) {
-        console.log(colors.red(err));
         process.exit(-1);
       });
   }
