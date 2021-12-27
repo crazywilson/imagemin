@@ -11,5 +11,7 @@ git clone git@github.com:crazywilson/imagemin.git
 
 cd imagemin
 
+npm install
+
 node tinipng.js /path/to/(imagedir|imagefile)
 ```
